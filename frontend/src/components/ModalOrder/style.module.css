@@ -1,0 +1,35 @@
+.conteiner {
+  width: 620px;
+  background-color: var(--dark-700);
+  color: var(--white);
+  transition: width 3s;
+}
+.conteiner h1 {
+  margin: 1rem 0;
+}
+.conteiner .containerItem {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+.conteiner .containerItem strong {
+  color: var(--green-900);
+}
+.conteiner .containerItem .description {
+  margin-top: 0.5rem;
+  word-break: break-all;
+}
+.conteiner .buttonOrder {
+  margin-top: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  color: var(--red-900);
+}
+
+@media screen and (max-width: 700px) {
+  .conteiner {
+    width: 80%;
+  }
+}/*# sourceMappingURL=style.module.css.map */

@@ -1,0 +1,66 @@
+1 passo instale o next js(npx create-next-app 'o nome da sua pasta')
+
+-não iclua nada nas instalação so a criação do src
+
+2 instale o typescript(yarn add typescript @types/react @types/node -D)
+
+3 passo no arquivo -app.js se ele não vim configurado por padrao  inclua esse codigo nele:
+
+import { AppProps } from "next/app";
+
+function MyApp({Component, pageProps}:AppProps){
+
+return <Component {...pageProps}/>
+
+}
+
+export default MyApp
+
+
+-depois converta ele de js para tsx
+
+4- estilize o projeto 
+
+-instale o sass (yarn add sass)
+
+5-crie um aquivo em pages chamado _documents.tsx (cria uma configuração de page que é renderizada uma vez)
+
+
+
+6-crie components para inseir nas pages
+
+-use de exemplo o projeot pizzaria
+
+-instale o react icons (yarn add react-icons)
+
+7 crie as pagina 
+
+8- cria link para navegar de uma pagina a outra
+
+a naveção de pagina e feito pelo componente Link para utilizar ele voce precisa
+
+-impotar ele para o aquivo import Link
+
+-depois voce utiliza ele como se fosse o 'a'dessa forma: <Link className={Style.text} href="/">
+ Já tem conta ? Faça seu login
+</Link>
+
+9 crie o context para fazer as autenticaçoes das requisiços //aplica a função para fazer as requisiçoes
+
+-crie uma pasta no src com o nome de context depois dentro dela crie um arquivo chamado AuthContext.tsx
+
+-use o exemplo do progeto pizzaria como exemplo
+
+-instale a biblioteca( yarn add axios nookies jwt-decode)
+
+-instale a biblioteca para estilização de erros ReactToastify( yarn add react-toastify)
+
+10-passo crie rotas privadas 
+
+-veja o exemplo do projeto, esta na pasta utils canSSRguest e canSSRAuth
+
+11- instale a biblioteca do modal(yarn add react-modal)
+
+-instale a tipagem do modal tbm (yarn add @types/react-modal -D)
+
+-inclua o modal informe o id da div principal (voce pode conferir na ferramenta do desenvolvedor na seção elements) geralmente é #__next

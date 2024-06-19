@@ -1,0 +1,5 @@
+prisma
+expo(emulador de celular)
+async storage
+react navigator
+axio

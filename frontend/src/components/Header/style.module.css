@@ -1,0 +1,47 @@
+.headerConteiner {
+  width: 95vw;
+  height: 5rem;
+}
+
+.headerContemt {
+  width: 90%;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.headerContemt img {
+  cursor: pointer;
+}
+.headerContemt h1 {
+  color: var(--white);
+}
+
+.menuNav {
+  display: flex;
+  align-items: center;
+}
+.menuNav a {
+  color: var(--white);
+  padding: 0 0.5rem;
+  display: inline-block;
+  position: relative;
+}
+.menuNav a + a {
+  margin-left: 2rem;
+}
+.menuNav a:hover {
+  color: var(--red-900);
+}
+.menuNav button {
+  margin-left: 2rem;
+  background: transparent;
+  border: 0;
+  transition: transform 0.9s;
+}
+.menuNav button:hover {
+  transform: scale(1.2);
+}/*# sourceMappingURL=style.module.css.map */

@@ -1,0 +1,467 @@
+projeto pizzaria
+
+primeiro passo : desenvolver o back end
+
+1-crie uma pasta chamada back end e instale o node.js (yarn init -y)
+
+2- intale o typscript em desenvolvimento(yarn add typescript -D)
+
+3- instale a biblioteca do express(yarn add express)
+
+4- depois instale as tipagens do express(yarn add @types/express -D)
+
+5- inicialize o typescript (yarn tsc --init)
+
+6-instale ts-node-dev(yarn add ts-node-dev -D)
+
+segundo passo: crie o servidor web e a rota de requisição
+
+{servidor web}
+
+
+crie um aquivo typescrip com nome de 'server.ts'
+
+-importe o express
+-importe biblioteca express-async-errors
+-importe cors
+-importe router
+
+voce pode usar de referencia o projeto pizzaria 
+
+
+
+crie um arquivo chamaro routes.ts
+
+configure o pakege.js da pasta backend
+
+-adicione o script:
+
+}
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+
+//esse é o script
+  "scripts": { 
+
+  "dev":"ts-node-dev src/server.ts"
+
+  }
+
+}
+
+depois rode a aplicação, vá no cmd e digite(yarn dev)
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+
+
+3 passo tratando de erros
+
+1-instale a biblioteca yarn add express-async-errors
+2-instale a biblioteca cors(yarn add cors)
+2-vá no server.ts e importe essa biblioteca
+
+
+
+//////////////////////////////////////////////////////
+
+
+4 passo crie um banco de dados
+
+va no post e crie uma banco de dados
+
+5 instale o prisma na sua aplicação(servidor)
+
+-yarn add prisma
+
+-yarn add @prisma/client
+
+-npx prisma init
+
+6 criando tabelas 
+
+-modelo de tabelas{
+
+use:
+-------
+idString- uuid
+name
+email
+password
+created_at DateTime
+update-atDateTime
+-----
+
+category
+----------
+id
+name
+create _atDateTime
+update-atDateTime
+------------------
+
+product
+------------
+id
+name
+price
+description
+banner
+
+category
+created
+update
+------------
+
+pedido-item(pedindo com pedidos dentro )
+------------------------
+id
+amount
+
+order_id
+product-id
+----------------------
+
+pedido
+-------------
+id
+table
+status
+draft
+name
+------------
+
+-no arquivo no prima voce vai colocar assim:
+
+ model User {
+
+id String @id @default(uuid())
+name String
+email String
+password String
+create_at DateTime? @default(now())
+updated_at DateTime? @default(now())
+
+@@map("users")
+
+}
+
+-deois que voce criar o modelo voce vai no cmd e vai criar a tebala no banco de dados
+para isso voce dever escrever no cmd {
+
+1-yarn migrate dev
+2-create_table_"nome da sua tebela"
+
+ou 
+
+-yarn prisma migrate dev
+-create_models_pizzaria/
+
+7 passo configurando estrutura(criando rotas de usuario usuarios)
+
+-crie duas pasta no src controller service configureas como no exemplo do projeto 
+-adicione as rotas de requisiçoes
+exemplo:
+
+
+import { Router, Request, Response } from "express";
+import {CreateUserController} from '../src/controlers/user/CreateUserController'
+
+const router = Router();
+
+router.post('/users', new CreateUserController().handle)
+
+export {router};
+
+fim do exemplo!
+
+8 passo cadastrando usuarios
+
+
+-importe o Prismaclient(o arquivo responsavel por importar os dados de requisição para o banco de dados ) no arquivo de serviço 
+
+-use esse exemplo:
+import  prismaClient from "../../prisma";
+
+interface UserRequest{
+
+name:string;
+email:string;
+password:string;
+
+}
+
+
+class CreateUserService {
+
+async execute({name, email, password}:UserRequest){
+
+//verifica se ele enviou um email
+if(!email){
+    throw new Error("email incorreto")
+}
+
+//verifica se esse email já esta cadastrado
+const userAlreadyExists = await prismaClient.user.findFirst({
+
+    where:{
+
+    email:email
+
+    }
+
+})
+
+if(userAlreadyExists){
+
+throw new Error("email já cadastrado")
+
+}
+
+const user = await prismaClient.user.create({
+
+data:{
+
+name:name,
+email:email,
+password: password
+
+},
+
+//responsavel por esconder a senha e outras informaçoes, aqui voce define os elementos que voce quer que apareça na requisição 
+
+select:{
+
+id:true,
+email:true,
+name:true,
+
+}
+
+})
+
+return user;
+
+}
+
+}
+
+export{CreateUserService}
+
+9 passo criptografe as senhas 
+
+-instale a biblioteca ( yarn add bcryptjs)
+
+-instale os types para o typescript ( yarn add @types/bcryptjs -D)
+-importe o import { hash } from "bcryptjs"; no serviço
+
+10 passo crie o serviço de login de usuario
+
+-cria eum arquivo controle e um service
+
+service:
+
+import prismaClient from "../../prisma";
+import { compare } from "bcryptjs";
+
+interface AuthRequest{
+
+email: string;
+password: string;
+
+}
+
+class AuthUserService{
+
+async execute({email, password}:AuthRequest){
+
+//verifica se o email existe
+
+const user =  await prismaClient.user.findFirst({
+
+where:{
+
+email:email
+
+}
+
+})
+
+if(!user){
+
+throw new Error("usuario/senha esta incorreta")
+
+}
+
+const passwordMatch = await compare(password, user.password);
+
+if(!passwordMatch){
+
+    throw new Error("usuario/senha esta incorreta")
+
+}
+
+return {ok : true}
+
+}
+
+}
+
+export {AuthUserService};
+
+
+controle:
+
+import { Request, response, Response } from "express";
+import { CreateUserService } from "../../services/user/CreateUserService"
+
+
+class CreateUserController{
+
+async handle(req: Request, res: Response){
+
+const {name, email, password } = req.body;
+
+const createUserService = new CreateUserService();
+
+const user = await createUserService.execute({name, email, password});
+
+return res.json({user})
+
+}
+
+}
+
+export {CreateUserController}
+
+11 passo instale e configure o jwt(pesquisar)
+
+-instale o jwt (yarn add jsonwebtoken)
+
+-instale os types do typescript( yarn add @types/jsonwebtoken -D)
+
+-va no arquivo env e cria uma chave secreta para isso e só usar o exemplo do projeto, o link para gerar o hash5 é https://www.md5hashgenerator.com/
+
+-impote o jwt no serviço de login e adicione esse trecho no codigo :
+
+//gerar um token jwt
+
+// se deu tudo certo vamos gerar o token do usuario
+const token = sign(
+
+{
+
+name: user.name,
+email: user.email
+
+},
+
+process.env.jwt_secrect,{
+
+subject: user.id,
+expiresIn:'30d'
+
+}
+
+)
+
+-instale o dotenv(yarn add dotenv)
+
+-desabilite strict (ele fica no arquivo tsconfig deixe como false)
+
+12 passo crie o middware
+
+-crie uma pasta chamada @types depois dentro dela uma chamada express e dentor do express crie um arquivo chamado is index.d.ts
+
+-vá no tsconfig e habilite o typesroots e coloque o caminho do seu middware
+
+-crie uma pasta chamada middware e crie uma arquivo chamado is Authenticad 
+
+-configure dessa maneira :
+
+import {Request, Response, NextFunction} from "express"
+import { verify } from "jsonwebtoken";
+
+
+interface payload{
+
+sub: string;
+
+}
+
+export function isAuthenticated(
+
+req: Request,
+res: Response,
+next: NextFunction
+
+){
+
+//receber token
+
+const authToken = req.headers.authorization;
+
+if(!authToken){
+
+return res.status(401).end();
+
+}
+
+const [,token] = authToken.split(" ");
+
+console.log(token);
+
+try{
+//validar token
+const { sub } = verify(
+
+token,
+process.env.jwt_secrect
+) as payload;
+//recuperar o id do token e colocar dentro de uma variavel user_id dento do req
+req.user_id = sub;
+
+return next();
+
+}catch(err){
+    return res.status(401).end();
+}
+
+}
+
+13 passo crie categorias
+
+14 passo liste as categorias
+
+15 cadastre produtso
+
+16 configure os envios de imagens
+
+-instale a biblioteca(yarn add multer)
+
+-instale as typagens ( yarn add @types/multer -D)
+
+-use os exemplos do projeto
+
+-adicione a rota do banner para poder usar as imagens{
+
+-va no server e importe o (import path from 'path')
+-e adicione em baixo da variavel app.routes (
+
+app.use(
+
+'/files',
+express.static(path.resolve(__dirname, '..', 'tmp'))
+
+)
+
+)
+
+17crie pedidos
+
+18 adicionte os item ao pedido

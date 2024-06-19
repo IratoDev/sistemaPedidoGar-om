@@ -1,0 +1,12 @@
+[]-cadastrar usu
+[]-logar usuario
+[]-verificar autentificação de rotas privadas
+[]-mostrar detalhes do usuario logado
+[]-criar lista de categoria
+[]-cria produto e lista de produto de uma categoria especifica
+[]-abrir uma mesa e poder fechar ela
+[]-adicionar item a mesa e poder retirar
+[]-enviar pedido em rascunho
+[]-lista todos os pedido que não estão em rascunho
+[]-poder acessar todos os detalhes da mesa com pedido dela
+[]-concluir pedido
