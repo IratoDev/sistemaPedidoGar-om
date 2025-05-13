@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  create_at  DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("users")
+}
+
+model Category {
+  id         String    @id @default(uuid())
+  name       String
+  create_at  DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  products   Product[]
+
+  @@map("Categorys")
+}
+
+model Product {
+  id          String       @id @default(uuid())
+  name        String
+  price       String
+  description String
+  banner      String
+  create_at   DateTime?    @default(now())
+  updated_at  DateTime?    @default(now())
+  category_id String
+  pedidositem PedidoItem[]
+  category    Category     @relation(fields: [category_id], references: [id])
+
+  @@map("Products")
+}
+
+model Pedido {
+  id          String       @id @default(uuid())
+  table       String       @db.VarChar(255)
+  status      Boolean      @default(false)
+  draft       Boolean      @default(true)
+  name        String?
+  create_at   DateTime?    @default(now())
+  updated_at  DateTime?    @default(now())
+  pedidositem PedidoItem[]
+
+  @@map("Pedidos")
+}
+
+model PedidoItem {
+  id         String    @id @default(uuid())
+  amount     Int
+  create_at  DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  pedido_id  String
+  product_id String
+  pedido     Pedido    @relation(fields: [pedido_id], references: [id])
+  product    Product   @relation(fields: [product_id], references: [id])
+
+  @@map("PedidoItems")
+}

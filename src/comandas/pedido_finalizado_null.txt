@@ -1,0 +1,5 @@
+Pedido ID: 11ecddf2-55fe-4102-bfbe-510a99aa8e02
+Mesa: Teste
+Nome: null
+Status: Finalizado
+Data: 2024-12-30T12:15:54.752Z
