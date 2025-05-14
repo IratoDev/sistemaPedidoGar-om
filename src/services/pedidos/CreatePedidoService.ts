@@ -18,7 +18,10 @@ const pedido = await prismaClient.pedido.create({
         table: table,
         name: name
         
-        }
+        },
+  include: {
+    pedidositem: false // ou simplesmente omita
+  }
 
 })
 
