@@ -1,24 +1,27 @@
-// pages/_document.tsx
 import { Html, Head, Main, NextScript } from "next/document";
-import { DocumentContext, DocumentInitialProps, Document } from "next/document";
+import React from 'react';
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
+export default function Document(){
 
-  render() {
-    return (
-      <Html lang="pt-BR">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
+return(
+
+<Html>
+
+<Head/>
+
+<body>
+    
+<Main/>
+
+<NextScript/>
+
+</body>
+
+
+</Html>
+
+
+
+)
+
 }
-
-export default MyDocument;
