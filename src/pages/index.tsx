@@ -61,8 +61,24 @@ return(
 <title> sujeito pizzaria-faça seu login</title>
 </Head>
 
-
 <div className={Style.conteinerCenter}>
+
+<div style={{
+  position: 'absolute',
+  bottom: '16px',
+  right: '16px',
+  background: '#ffffffdd',
+  padding: '16px',
+  borderRadius: '8px',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+  zIndex: 1000,
+  maxWidth: '300px'
+}}>
+  <h1>Usuário teste:</h1>
+  <h3>Email:teste.email@gmail.com</h3>
+  <p>Senha: 1234</p>
+</div>
+
 
 <Image className={Style.logo} src={Logo} alt ="logo sujeito pizzaria"  />
 
