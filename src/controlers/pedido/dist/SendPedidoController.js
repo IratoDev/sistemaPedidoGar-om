@@ -36,32 +36,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SendPedidoService = void 0;
-var prisma_1 = require("../../prisma");
-var SendPedidoService = /** @class */ (function () {
-    function SendPedidoService() {
+exports.SendPedidoController = void 0;
+var SendPedidoService_1 = require("../../services/pedidos/SendPedidoService");
+var SendPedidoController = /** @class */ (function () {
+    function SendPedidoController() {
     }
-    SendPedidoService.prototype.execute = function (_a) {
-        var pedido_id = _a.pedido_id;
+    SendPedidoController.prototype.handle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var pedido;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma_1["default"].pedido.update({
-                            where: {
-                                id: pedido_id
-                            },
-                            data: {
-                                draft: false
-                            }
-                        })];
+            var pedido_id, seadPedido, pedido;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        pedido_id = req.body.pedido_id;
+                        seadPedido = new SendPedidoService_1.SendPedidoService();
+                        return [4 /*yield*/, seadPedido.execute({
+                                pedido_id: pedido_id
+                            })];
                     case 1:
-                        pedido = _b.sent();
-                        return [2 /*return*/, pedido];
+                        pedido = _a.sent();
+                        return [2 /*return*/, res.json(pedido)];
                 }
             });
         });
     };
-    return SendPedidoService;
+    return SendPedidoController;
 }());
-exports.SendPedidoService = SendPedidoService;
+exports.SendPedidoController = SendPedidoController;
