@@ -1,13 +1,14 @@
-import fs from "fs";
-import path from "path";
 import prismaClient from "../../prisma";
 
-interface PedidoRequest {
-  pedido_id: string;
+interface PedidoRequest{
+
+pedido_id:string
+
 }
 
-class SendPedidoService {
- async execute({pedido_id}:PedidoRequest){
+class SendPedidoService{
+
+async execute({pedido_id}:PedidoRequest){
 
 const pedido = await prismaClient.pedido.update({
 
@@ -27,6 +28,7 @@ draft:false
 return pedido;
 
 }
+
 }
 
-export { SendPedidoService };
+export{SendPedidoService}
