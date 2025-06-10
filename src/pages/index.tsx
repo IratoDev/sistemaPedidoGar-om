@@ -78,7 +78,7 @@ return(
   <h3>Email:teste.email@gmail.com</h3>
   <p>Senha: 1234</p>
 
-  <p>Baixe o app de garçom:</p>
+  <p>Baixe o app de garçom: </p>
   <a href="https://drive.google.com/file/d/1zvaWv97AFZ_b1suXTRGdXvj-frrmwAPV/view?usp=drive_link"/>
 </div>
 
