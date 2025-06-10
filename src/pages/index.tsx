@@ -79,7 +79,7 @@ return(
   <p>Senha: 1234</p>
 
   <p>Baixe o app de garçom: </p>
-  <a href="https://drive.google.com/file/d/1zvaWv97AFZ_b1suXTRGdXvj-frrmwAPV/view?usp=drive_link"/>
+  <a href="https://drive.google.com/file/d/1zvaWv97AFZ_b1suXTRGdXvj-frrmwAPV/view?usp=drive_link">clique aqui !!!</a>
 </div>
 
 
