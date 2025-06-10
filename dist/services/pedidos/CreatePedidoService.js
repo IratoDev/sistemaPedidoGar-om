@@ -21,6 +21,9 @@ class CreatePedidoService {
                 data: {
                     table: table,
                     name: name
+                },
+                include: {
+                    pedidositem: false // ou simplesmente omita
                 }
             });
             return pedido;
